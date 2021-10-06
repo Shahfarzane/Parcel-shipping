@@ -37,9 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
     'bootstrap4',
     'social_django',
+    'core.apps.CoreConfig',
 ]
 
 MIDDLEWARE = [
@@ -141,3 +141,11 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'id,name,email'
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'pedram1990shah@gmail.com'
+EMAIL_HOST_PASSWORD = 'Shahin9090'
+DEFAULT_FROM_EMAIL = 'Bizlution <no-reply@bizlution.localhost'
