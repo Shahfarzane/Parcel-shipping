@@ -5,7 +5,8 @@ from django.contrib.auth import views as auth_views
 from core import views
 from core.customer import views as customer_views
 from core.courier import views as courier_views
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 customer_urlpatterns = [
     path('',customer_views.home, name='home'),
@@ -31,3 +32,7 @@ urlpatterns = [
     path('customer/',include((customer_urlpatterns,'customer'))),
     path('courier/',include((courier_urlpatterns,'courier'))),
 ]
+
+## Just works in dev mode
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
