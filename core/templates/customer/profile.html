@@ -6,11 +6,6 @@
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
 <script>
-    // Import the functions you need from the SDKs you need
-    // import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js";
-
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
 
     // Your web app's Firebase configuration
     const firebaseConfig = {
@@ -23,7 +18,7 @@
     };
 
     // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
+    firebase.initializeApp(firebaseConfig);
 </script>
 {% endblock %}
 
@@ -60,6 +55,7 @@
 <br>
 <div class="card bg-white mt-2 mb-5">
     <div class="card-body">
+        <div id="recaptcha-container"></div>
 
         <div id="get-code" class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Phone number">
@@ -79,21 +75,46 @@
 </div>
 
 <script>
+
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
     $("#get-code button").on('click', function () {
         const phoneNumber = $("#get-code input").val();
         console.log(phoneNumber);
+        firebase.auth().signInWithPhoneNumber(phoneNumber, window.recaptchaVerifier)
+            .then((confirmationResult) => {
+                // SMS sent. Prompt user to type the code from the message, then sign the
+                // user in with confirmationResult.confirm(code).
+                console.log(confirmationResult)
+                window.confirmationResult = confirmationResult;
+                $("#get-code").addClass("d-none");
+                $("#verify-code").removeClass("d-none");
 
-        $("#get-code").addClass("d-none");
-        $("#verify-code").removeClass("d-none");
+            }).catch((error) => {
+
+                toast(error.message, 'error')
+            });
+
 
 
     })
 
     $("#verify-code button").on('click', function () {
         const code = $("#verify-code input").val();
-        console.log(code);
 
 
+        confirmationResult.confirm(code).then((result) => {
+            // User signed in successfully.
+            const user = result.user;
+            console.log(user.phoneNumber)
+            user.getIdToken().then(function (idToken) {
+                console.log(idToken)
+            })
+            // ...
+        }).catch((error) => {
+            // User couldn't sign in (bad verification code?)
+            // ...
+            toast(error.message, 'error')
+        });
 
 
     })
