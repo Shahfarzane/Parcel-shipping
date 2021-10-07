@@ -153,3 +153,5 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'pedram1990shah@gmail.com'
 EMAIL_HOST_PASSWORD = 'Shahin9090'
 DEFAULT_FROM_EMAIL = 'Bizlution <no-reply@bizlution.localhost'
+
+FIREBASE_ADMIN_CREDENTIAL = os.path.join(BASE_DIR, 'bizlutionparcel-firebase-adminsdk-8rgeg-02747766d5.json')
