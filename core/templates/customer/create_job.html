@@ -33,7 +33,14 @@
                     Job Summary
                 </div>
                 <div class="card-body">
+                    {% if not job %}
                     <p>A summary of your job information will appear here.</p>
+                    {% else %}
+                    <h4>{{ job.name }}</h4>
+                    <span>{{ job.quantity }} Item(s)</span><br />
+                    <span>{{ job.get_size_display }} Size</span><br />
+
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -70,18 +77,16 @@
                 <div class="tab-pane fade show active" id="pills-info" role="tabpanel" aria-labelledby="pills-info-tab">
                     <h1>Item info</h1>
 
-                    <form action="POST" enctype="multipart/form-data">
-                        <b class="text-secondary"> Item information</b></br>
+                    <form method="POST" enctype="multipart/form-data">
+                        <b class="text-secondary">Item Information</b><br />
                         <div class="card bg-white mt-2 mb-5">
                             <div class="card-body">
                                 {% csrf_token %}
                                 {% bootstrap_form step1_form %}
                             </div>
                         </div>
-
                         <input type="hidden" name="step" value="1">
-                        <button type="submit" class="btn btn-warning">Continue</button>
-
+                        <button type="submit" class="btn btn-warning">Save & Continue</button>
                     </form>
                 </div>
                 <div class="tab-pane fade" id="pills-pickup" role="tabpanel" aria-labelledby="pills-pickup-tab">
