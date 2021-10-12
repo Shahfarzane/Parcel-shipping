@@ -154,7 +154,7 @@ EMAIL_HOST_USER = 'pedram1990shah@gmail.com'
 EMAIL_HOST_PASSWORD = 'Shahin9090'
 DEFAULT_FROM_EMAIL = 'Bizlution <no-reply@bizlution.localhost'
 
-FIREBASE_ADMIN_CREDENTIAL = os.path.join(BASE_DIR, 'bizlutionparcel-firebase-adminsdk-8rgeg-02747766d5.json')
+FIREBASE_ADMIN_CREDENTIAL = os.path.join(BASE_DIR, 'bizlutionp-firebase-adminsdk-3zlf5-49400c70cb.json')
 
 STRIPE_API_PUBLIC_KEY = "pk_test_51JhvZDIlnLB5lfru98PHeY0VpHEo0NSea120RDFGc4NgyaMMy2K8cWFYdfWfPkCWn6WUnDDGzsQuO3q8fh1ODYd800vWViziee"
 STRIPE_API_SECRET_KEY = "sk_test_51JhvZDIlnLB5lfru5OVjUcpKS5FaqQBAPMtxQlCnEhXBEv29OleHxB1XVr0LcSdsIQURcx5DMePQsqXXXJYasE9200PNo87QED"
