@@ -27,5 +27,5 @@ class JobCreateStep2Form(forms.ModelForm):
 
     class Meta:
         model = Job
-        fields = ('pickup_address','pickup_lat','pickup_lat','pickup_name','pickup_phone')        
+        fields = ('pickup_address','pickup_lat','pickup_lng','pickup_name','pickup_phone')        
         
