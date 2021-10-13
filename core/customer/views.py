@@ -1,3 +1,4 @@
+import requests
 import stripe
 import firebase_admin
 from firebase_admin import credentials,auth
@@ -144,8 +145,30 @@ def create_job_page(request):
         elif request.POST.get('step') == '3':
                 step3_form = forms.JobCreateStep3Form(request.POST, instance=creating_job)
                 if step3_form.is_valid():
-                 creating_job = step3_form.save()
-                return redirect(reverse('customer:create_job'))        
+                    creating_job = step3_form.save()
+                    
+                    try:
+                        r = requests.get("https://maps.googleapis.com/maps/api/distancematrix/json?origins={}&destinations={}&mode=transit&key={}".format(
+                            creating_job.pickup_address,
+                            creating_job.delivery_address,
+                            settings.GOOGLE_MAP_API_KEY,
+                        ))
+                        print(r.json()['rows'])
+
+                        distance = r.json()['rows'][0]['elements'][0]['distance']['value']
+                        duration = r.json()['rows'][0]['elements'][0]['duration']['value']
+                        creating_job.distance = round(distance / 1000, 2)
+                        creating_job.duration = int(duration / 60)
+                        creating_job.price = creating_job.distance * 1 # $1 per km
+                        creating_job.save()
+                        creating_job = step3_form.save()
+                    except Exception as e:
+                        print(e)
+                        messages.error(request, "Unfortunately, we do not support shipping at this distance")
+
+                    return redirect(reverse('customer:create_job'))    
+
+               
 
  
 
@@ -165,7 +188,8 @@ def create_job_page(request):
         "step": current_step,
         "step1_form": step1_form,
         "step2_form": step2_form,
-        "step3_form": step3_form
+        "step3_form": step3_form,
+        "GOOGLE_MAP_API_KEY": settings.GOOGLE_MAP_API_KEY,
         
     })
 
