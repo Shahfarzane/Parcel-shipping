@@ -99,6 +99,7 @@
     <img src="{{ job.photo.url }}" class="rounded-lg mr-3" width="150" height="150">
     <div class="media-body">
 
+
         {% if job.status == 'processing' %}
         <form method="POST" class="float-right">
             {% csrf_token %}
