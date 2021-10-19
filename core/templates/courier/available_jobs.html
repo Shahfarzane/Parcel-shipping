@@ -58,7 +58,13 @@
         $("#distance").html(job.distance);
         $("#price").html(job.price);
 
+        $("#job-details").on("click", function () {
+            window.location.href = "/courier/jobs/available/" + job.id + "/";
+        })
+
     }
+
+
 </script>
 
 <style>
