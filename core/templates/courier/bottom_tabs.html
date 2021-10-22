@@ -35,6 +35,7 @@
 
 {% url 'courier:available_jobs' as available_jobs_url %}
 {% url 'courier:current_job' as current_job_url %}
+{% url 'courier:archived_jobs' as archived_jobs_url %}
 
 <div class="bottom-tabs d-flex">
     <a href="{% url 'courier:available_jobs' %}" class="{% if request.path == available_jobs_url %}active{% endif %}">
