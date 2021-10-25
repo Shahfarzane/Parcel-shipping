@@ -28,6 +28,7 @@ courier_urlpatterns = [
     path('jobs/current/<id>/take_photo/', courier_views.current_job_take_photo_page, name="current_job_take_photo"),
     path('jobs/complete/', courier_views.job_complete_page, name="job_complete"),
     path('jobs/archived/', courier_views.archived_jobs_page, name="archived_jobs"),
+    path('profile/', courier_views.profile_page, name="profile"),
 
     
 
