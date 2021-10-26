@@ -69,7 +69,7 @@ class CourierAdmin(admin.ModelAdmin):
     return round(sum(t.amount for t in Transaction.objects.filter(job__courier=obj, status=Transaction.IN_STATUS)) * 0.8, 2)
 
 class TransactionAdmin(admin.ModelAdmin):
-  list_display = ['stripe_payment_intent_id', 'courier_paypal_email', 'customer', 'courier', 'job', 'amount', 'status', 'create_at']
+  list_display = ['stripe_payment_intent_id', 'courier_paypal_email', 'customer', 'courier', 'job', 'amount', 'status', 'created_at']
   list_filter = ['status',]
 
   def customer(self, obj):

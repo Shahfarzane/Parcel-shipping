@@ -9,6 +9,25 @@
     {% load bootstrap4 %}
     {%bootstrap_css%}
     {% bootstrap_javascript jquery='full' %}
+    {% include 'load_firebase.html' %}
+
+    <script>
+        const messaging = firebase.messaging();
+        messaging
+            .getToken({
+                validKey: "BIwbz-BI__jOMYdeeVGZ3YdceRsaHeP_RP4Mf8tSpvCWkgZOJU-bOucnYVsv50_OfBUTPVxR2plE9N3RBY1LZPk"
+            })
+            .then((currentToken) => {
+                console.log(currentToken);
+                if (currentToken) {
+                    fetch('{% url "courier:fcm_token_update_api" %}?fcm_token=' + currentToken);
+                }
+            })
+            .catch((err) => {
+                console.log('An error occured while retrieving token. ', err);
+            })
+    </script>
+
 
     <script>
         let vh = window.innerHeight * 0.01;
