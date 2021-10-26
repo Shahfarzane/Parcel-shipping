@@ -25,7 +25,7 @@ SECRET_KEY = 'ud4@ot-zoc6n@xdx2m8f5wyj&u5)wmm)-r_%qp4#tvz1=)&&&y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*',]
 
 
 # Application definition
@@ -165,3 +165,6 @@ GOOGLE_MAP_API_KEY = "AIzaSyDVaBNtguXgQcqcAg32XoTGDxyx8fcn7tA"
 PAYPAL_MODE = "sandbox"
 PAYPAL_CLIENT_ID = "AdxIABTjF_I6V6LQu67gDejRZEpvp8bbcFbN8wL-CXB66-qNlIYTxitCP6K36gLZsZ20ippmR9_0Sxnw"
 PAYPAL_CLIENT_SECRET = "EECjB3z-i5LKmVbcqqP7NUq118T94rfgX2AfpDCodsM61NrKaq_ASEgWIMibwsqKJFUPI0UI6tNcCGtu"
+
+
+NOTIFICATION_URL = "https://af79-31-208-78-236.ngrok.io"
