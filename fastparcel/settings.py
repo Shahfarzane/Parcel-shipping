@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'social_django',
     'core.apps.CoreConfig',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -167,4 +168,7 @@ PAYPAL_CLIENT_ID = "AdxIABTjF_I6V6LQu67gDejRZEpvp8bbcFbN8wL-CXB66-qNlIYTxitCP6K3
 PAYPAL_CLIENT_SECRET = "EECjB3z-i5LKmVbcqqP7NUq118T94rfgX2AfpDCodsM61NrKaq_ASEgWIMibwsqKJFUPI0UI6tNcCGtu"
 
 
-NOTIFICATION_URL = "https://af79-31-208-78-236.ngrok.io"
+NOTIFICATION_URL = "https://0874-31-208-78-236.ngrok.io"
+
+
+ASGI_APPLICATION = "fastparcel.asgi.application"

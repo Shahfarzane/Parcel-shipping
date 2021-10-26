@@ -2,12 +2,14 @@
 from django.contrib import admin
 from django.urls import path,include
 from django.contrib.auth import views as auth_views
-from core import views
+from core import views, consumers
 from core.customer import views as customer_views
 from core.courier import views as courier_views, apis as courier_apis
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
+
+
 
 
 customer_urlpatterns = [
@@ -57,6 +59,9 @@ urlpatterns = [
 
 ]
 
+websocket_urlpatterns = [
+    path('ws/jobs/<job_id>/', consumers.JobConsumer.as_asgi())
+]
 ## Just works in dev mode
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
