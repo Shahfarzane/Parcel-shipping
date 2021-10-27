@@ -172,3 +172,14 @@ NOTIFICATION_URL = "https://0874-31-208-78-236.ngrok.io"
 
 
 ASGI_APPLICATION = "fastparcel.asgi.application"
+
+
+# Channels
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": ['127.0.0.1','6739'],
+        },
+    },
+}
