@@ -1,3 +1,6 @@
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
@@ -6,8 +9,6 @@ from django.contrib import messages
 
 from core.models import *
 from core.courier import forms
-
-
 
 @login_required(login_url="/sign-in/?next=/courier/")
 def home(request):
@@ -19,22 +20,33 @@ def available_jobs_page(request):
         "GOOGLE_MAP_API_KEY": settings.GOOGLE_MAP_API_KEY
     })
 
-
 @login_required(login_url="/sign-in/?next=/courier/")
-def available_job_page(request,id):
+def available_job_page(request, id):
     job = Job.objects.filter(id=id, status=Job.PROCESSING_STATUS).last()
 
     if not job:
         return redirect(reverse('courier:available_jobs'))
+
     if request.method == 'POST':
         job.courier = request.user.courier
-        job.status =  Job.PICKING_STATUS
+        job.status = Job.PICKING_STATUS
         job.save()
+
+        try:
+            layer = get_channel_layer()
+            async_to_sync(layer.group_send)("job_" + str(job.id), {
+                'type': 'job_update',
+                'job': {
+                    'status': job.get_status_display(),
+                }
+            })
+        except:
+            pass
 
         return redirect(reverse('courier:available_jobs'))
 
-    return render(request, 'courier/available_job.html',{
-        "job": job,
+    return render(request, 'courier/available_job.html', {
+        "job": job
     })
 
 @login_required(login_url="/sign-in/?next=/courier/")
@@ -52,7 +64,6 @@ def current_job_page(request):
         "GOOGLE_MAP_API_KEY": settings.GOOGLE_MAP_API_KEY
     })
 
-    
 @login_required(login_url="/sign-in/?next=/courier/")
 def current_job_take_photo_page(request, id):
     job = Job.objects.filter(
@@ -75,7 +86,6 @@ def current_job_take_photo_page(request, id):
 def job_complete_page(request):
     return render(request, 'courier/job_complete.html')
 
-
 @login_required(login_url="/sign-in/?next=/courier/")
 def archived_jobs_page(request):
     jobs = Job.objects.filter(
@@ -89,22 +99,19 @@ def archived_jobs_page(request):
 
 @login_required(login_url="/sign-in/?next=/courier/")
 def profile_page(request):
-
     jobs = Job.objects.filter(
         courier=request.user.courier,
-        status= Job.COMPLETED_STATUS
+        status=Job.COMPLETED_STATUS
     )
 
-    ## 0.8 means only 80 precent of the payments goes to the courier
     total_earnings = round(sum(job.price for job in jobs) * 0.8, 2)
     total_jobs = len(jobs)
     total_km = sum(job.distance for job in jobs)
 
-
     return render(request, 'courier/profile.html', {
-        "total_jobs": total_jobs,
         "total_earnings": total_earnings,
-        "total_km": total_km,
+        "total_jobs": total_jobs,
+        "total_km": total_km
     })
 
 @login_required(login_url="/sign-in/?next=/courier/")
@@ -116,12 +123,9 @@ def payout_method_page(request):
         if payout_form.is_valid():
             payout_form.save()
 
-            messages.success(request, "Payout e-mail address updated.")
+            messages.success(request, "Payout address is updated.")
             return redirect(reverse('courier:profile'))
 
     return render(request, 'courier/payout_method.html', {
         'payout_form': payout_form
     })
-
-
-
