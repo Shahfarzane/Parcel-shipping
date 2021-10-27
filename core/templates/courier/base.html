@@ -9,7 +9,7 @@
     <title>Courier | FastParcel</title>
     <link rel="shortcut icon" href="{% static 'img/logo.png' %}">
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/logo.png' %}">
-    <link rel="manifest" href="{% static 'manifest.json' %}">
+    <!-- <link rel="manifest" href="{% static 'manifest.json' %}"> -->
 
     {% load bootstrap4 %}
     {% bootstrap_css %}
@@ -21,7 +21,7 @@
         const messaging = firebase.messaging();
         messaging
             .getToken({
-                validKey: "BBNWzbFaCmpxtJ4q8gRHpn9cz20HTQvEYB74WOh7PdDrNhmjEhLqRylzLdmrGUWPp8dwsGuOte_kChdxnSVg3OQ"
+                validKey: "BPdEY4HDppswRg54ICf-DTvlH4WzmhTcHSCZ-KWNnl0ZTpsAwnwlnZ4Pyd4NMinNcjE0uRe6LSUN8mYiVWvxNRc"
             })
             .then((currentToken) => {
                 console.log(currentToken);

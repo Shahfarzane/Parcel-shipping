@@ -16,6 +16,7 @@ def payout_to_courier(modeladmin, request, queryset):
   payout_items = []
   transaction_querysets = []
 
+  # Step 1 - Get all the valid couriers in queryset
   for courier in queryset:
     if courier.paypal_email:
       courier_in_transactions = Transaction.objects.filter(
@@ -37,6 +38,7 @@ def payout_to_courier(modeladmin, request, queryset):
             "sender_item_id": str(courier.id)
         })
 
+  # Step 2 - Send payout batch + email to receivers
   sender_batch_id = ''.join(random.choice(string.ascii_uppercase) for i in range(12))
   payout = Payout({
     "sender_batch_header": {
@@ -46,6 +48,7 @@ def payout_to_courier(modeladmin, request, queryset):
     "items": payout_items
   })
 
+  # Step 3 - Execute Payout process and Update transactions' status to "OUT" if success
   try:
     if payout.create():
       for t in transaction_querysets:
