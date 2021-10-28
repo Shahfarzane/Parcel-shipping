@@ -1,0 +1,14 @@
+{
+  "short_name": "Bizlution Parcel",
+  "name": "Bizlution Parcel",
+  "description": "Easiest and fastet way to ship your parcels",
+  "icons": [
+    {
+      "src": "/static/img/logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/courier/",
+  "display": "standalone"
+}
