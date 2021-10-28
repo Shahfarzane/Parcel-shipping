@@ -169,7 +169,7 @@ PAYPAL_CLIENT_ID = "AdxIABTjF_I6V6LQu67gDejRZEpvp8bbcFbN8wL-CXB66-qNlIYTxitCP6K3
 PAYPAL_CLIENT_SECRET = "EECjB3z-i5LKmVbcqqP7NUq118T94rfgX2AfpDCodsM61NrKaq_ASEgWIMibwsqKJFUPI0UI6tNcCGtu"
 
 
-NOTIFICATION_URL = "https://7fc1-31-208-78-236.ngrok.io"
+NOTIFICATION_URL = "https://still-tundra-58726.herokuapp.com"
 
 
 ASGI_APPLICATION = "fastparcel.asgi.application"
@@ -183,3 +183,6 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+import django_on_heroku
+django_on_heroku.settings(locals())
