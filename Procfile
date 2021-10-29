@@ -1,1 +1,1 @@
-web: daphne fastparcel.asgi:application -p $PORT -b 0.0.0.0 --bind
+web: daphne fastparcel.asgi:application -p $PORT -b 0.0.0.0 --bind  -v2
