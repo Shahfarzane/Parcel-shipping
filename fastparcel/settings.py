@@ -184,15 +184,6 @@ CHANNEL_LAYERS = {
     },
 }
 
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": os.environ.get('redis://:p1d180eeecbc92840960c8e937854966a7046ebebf8462e2839d94ffa8fdf8fc5@ec2-52-7-158-107.compute-1.amazonaws.com:6460'),
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
-    }
-}
 
 import django_on_heroku
 django_on_heroku.settings(locals())
