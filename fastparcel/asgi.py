@@ -14,7 +14,6 @@ from fastparcel.urls import websocket_urlpatterns
 
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "fastparcel.settings")
-django.setup()
 django_asgi_app = get_asgi_application()
 
 
