@@ -179,11 +179,10 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": ['redis://:p1d180eeecbc92840960c8e937854966a7046ebebf8462e2839d94ffa8fdf8fc5@ec2-52-7-158-107.compute-1.amazonaws.com:6460'],
+            "hosts": [('127.0.0.1', 6379)],
         },
     },
 }
-
 
 import django_on_heroku
 django_on_heroku.settings(locals())
